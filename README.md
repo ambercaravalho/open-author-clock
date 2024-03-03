@@ -70,6 +70,10 @@ This project always welcome good additions to the collection and encourage you t
 
 Happy contributing! 🎉
 
+## Known Issues
+
+Visit this repo's [Issues](https://github.com/ambercaravalho/open-author-clock/issues) page to see known issues and contribute to make this project even better!
+
 ## License Disclaimer
 
 This project uses quotes sourced from the [literaryclock](https://github.com/elegantalchemist/literaryclock) repo under the GNU General Public License v3.0. We adhere to the same license, ensuring:
