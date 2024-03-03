@@ -2343,6 +2343,13 @@ const csvData = `
 23:59|new day was still a minute away|Chigurgh rose and picked up the empty casing off the rug and blew into it and put it in his pocket and looked at his watch. The new day was still a minute away.|No Country for Old Men |Cormac McCarthy|unknown
 `;
 
+// Fade the GitHub logo in and out
+document.addEventListener('DOMContentLoaded', (event) => {
+  setTimeout(() => {
+      document.querySelector('.github-link').style.opacity = 0;
+  }, 5000); // Fades out after 5 seconds
+});
+
 // Transform the CSV string into an array of quote objects
 const quotes = csvData.trim().split("\n").map(line => {
     const [time, timestring, quote, title, author] = line.split("|");

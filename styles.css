@@ -7,6 +7,24 @@ body, html {
     overflow: hidden; /* Prevents any potential scrollbar from affecting alignment */
 }
 
+.github-link {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    transition: opacity 1s ease-in-out;
+    opacity: 1;
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+.github-link img {
+    width: 80px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.github-link:hover {
+    opacity: 1 !important;
+}
+
 #quoteContainer {
     position: relative;
     width: 100%;
