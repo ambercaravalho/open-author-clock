@@ -2423,11 +2423,11 @@ function convertTimeToMinutes(time) {
 // Adjust the font size each time the quote updates
 function adjustFontSizeForQuote() {
     const quoteElement = document.getElementById('quote');
-    let baseFontSize = window.innerWidth < window.innerHeight ? window.innerWidth / 15 : window.innerHeight / 15; // Smaller base font size for portrait orientation
+    let baseFontSize = window.innerWidth < window.innerHeight ? window.innerWidth / 15 : window.innerHeight / 10; // Smaller base font size for portrait orientation
 
     // Adjust base font size based on the length of the quote to ensure it fits
     const quoteLength = quoteElement.textContent.length;
-    if (quoteLength > 200) { // If the quote is longer, reduce the font size
+    if (quoteLength > 150) { // If the quote is longer, reduce the font size
         baseFontSize *= 0.75; // Adjust this value as needed to ensure fit
     }
 
