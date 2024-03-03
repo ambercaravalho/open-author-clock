@@ -4,13 +4,12 @@ An open-source, web-based implementation of the Author Clock Kickstarter project
 
 ## ✨ See It in Action ✨
 
-![Open Author Clock running on a Kindle Paperwhite 11th Generation](example-photo.jpg)
-
-Try it out for yourself and see how literature can tell time: [__Live Demo Site__](https://clock.ambercaravalho.com)
-
-### Purpose
-
 Why confine the beautiful words of literature to the pages of a book? This project brings literary quotes to every minute of your day, telling time through the wise and whimsical words of authors from times gone by.
+
+<p align="center">
+<img src="https://github.com/ambercaravalho/open-author-clock/raw/main/example-photo.jpg" height="400">
+
+Try it out for yourself and see how literature can tell time: [__Live Demo Site 🖥️__](https://clock.ambercaravalho.com)
 
 ### Inspiration
 
