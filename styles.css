@@ -1,0 +1,37 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Tinos', serif;
+    background-color: rgb(229, 222, 201); /* Updated background color */
+    color: #333;
+    overflow: hidden; /* Prevents any potential scrollbar from affecting alignment */
+}
+
+#quoteContainer {
+    position: relative;
+    width: 100%; /* Ensure it spans the full width */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px; /* Add padding to ensure content doesn't touch the edges */
+    box-sizing: border-box; /* Ensures padding does not add to the set width */
+}
+
+#quote {
+    font-size: calc(3vw + 3vh + 3vmin);
+    text-align: left;
+    opacity: 0; /* Start with quote invisible for fade-in effect */
+    transition: opacity 2s; /* Fade in/out duration */
+    margin: 0; /* Removes any default margin */
+}
+
+#author {
+    font-size: calc(1.5vw + 1.5vh + 1.5vmin); /* Increased font size */
+    position: absolute;
+    right: 3%; /* Ensures it's at the very right */
+    bottom: 0px; /* Maintains a consistent distance from the bottom */
+    text-align: right;
+    opacity: 0; /* Start with author/book title invisible for fade-in effect */
+    transition: opacity 2s; /* Fade in/out duration */
+}
