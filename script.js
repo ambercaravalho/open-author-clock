@@ -2376,11 +2376,35 @@ function findQuoteForCurrentTime() {
     }
 }
 
-// Pull user's current time from browser
-function getCurrentTimeFormatted() {
+function isDeviceTimeUTC() {
+    // Get the current time and time zone offset in minutes
     const now = new Date();
-    let hours = now.getHours().toString().padStart(2, '0');
-    let minutes = now.getMinutes().toString().padStart(2, '0');
+    const timeZoneOffsetInMinutes = now.getTimezoneOffset();
+
+    // UTC time has an offset of 0 minutes
+    // If the device's time zone offset is 0, we assume it's reporting time in UTC
+    return timeZoneOffsetInMinutes === 0;
+}
+
+function applyOffsetIfUTC(offsetHours) {
+    const now = new Date();
+
+    if (isDeviceTimeUTC()) {
+        // Convert offsetHours to milliseconds and adjust the time
+        const adjustedTime = new Date(now.getTime() + offsetHours * 60 * 60 * 1000);
+
+        return adjustedTime;
+    }
+
+    return now; // Return the original time if not in UTC
+}
+
+function getCurrentTimeFormatted() {
+    // Apply your desired offset here (e.g., -5 for EST)
+    const localTime = applyOffsetIfUTC(-5);
+
+    let hours = localTime.getHours().toString().padStart(2, '0');
+    let minutes = localTime.getMinutes().toString().padStart(2, '0');
     return `${hours}:${minutes}`;
 }
 
@@ -2436,3 +2460,51 @@ setInterval(updateQuote, 60000); // Adjust as needed
 
 // Set an interval to regularly update the quote
 setInterval(updateQuote, 60000); // Set to update every minute
+
+// Keep the screen awake on supported devices
+if ('wakeLock' in navigator) {
+    let wakeLock = null;
+  
+    const requestWakeLock = async () => {
+      try {
+        wakeLock = await navigator.wakeLock.request('screen');
+        console.log('Screen Wake Lock is active.');
+  
+        wakeLock.addEventListener('release', () => {
+          console.log('Screen Wake Lock was released');
+        });
+  
+        document.addEventListener('visibilitychange', async () => {
+          if (wakeLock !== null && document.visibilityState === 'visible') {
+            wakeLock = await navigator.wakeLock.request('screen');
+          }
+        });
+      } catch (err) {
+        console.error(`${err.name}, ${err.message}`);
+      }
+    };
+  
+    requestWakeLock();
+  } else {
+    console.log('Screen Wake Lock API not supported.');
+  }
+  
+// A more hacky way of keeping the screen on for some devices
+setInterval(() => {
+  window.scrollBy(0, 1);
+  window.scrollBy(0, -1);
+}, 30000);
+
+function adjustStyleForEReaders() {
+    const userAgent = navigator.userAgent;
+
+    // eReader identifiers in regex pattern 
+    if (/Kindle|Nook|Kobo/.test(userAgent)) {
+        // Apply dark background and light text for eReaders
+        document.body.style.backgroundColor = "#fff"; // Black background
+        document.body.style.color = "#000"; // White text
+    }
+}
+
+// Run the function when the page loads
+adjustStyleForEReaders();

@@ -1,6 +1,6 @@
 # Open Author Clock ⏰
 
-A project that aims to merge the literary world with the relentless ticking of time. 
+An open-source, web-based implementation of the Author Clock Kickstarter project intended to run on any type of device.
 
 ## ✨ See It in Action ✨
 
