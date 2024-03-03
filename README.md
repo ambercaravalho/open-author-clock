@@ -4,7 +4,7 @@ An open-source, web-based implementation of the Author Clock Kickstarter project
 
 ## ✨ See It in Action ✨
 
-![Open Author Clock running on a Kindle Paperwhite 11th Generation](link-to-your-photo.jpg)
+![Open Author Clock running on a Kindle Paperwhite 11th Generation](example-photo.jpg)
 
 Try it out for yourself and see how literature can tell time: [__Live Demo Site__](https://clock.ambercaravalho.com)
 
