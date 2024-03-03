@@ -1,3 +1,3 @@
 # Open Author Clock
 
-*Documentaiton coming soon!*
+*Documentation coming soon!*
