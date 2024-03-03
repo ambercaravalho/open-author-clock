@@ -2349,6 +2349,33 @@ const quotes = csvData.trim().split("\n").map(line => {
     return { time, timestring, quote, title, author };
 });
 
+function findQuoteForCurrentTime() {
+    const currentTime = getCurrentTimeFormatted();
+    const currentTimeMinutes = convertTimeToMinutes(currentTime);
+
+    // Initially try to filter quotes for an exact match on the current time
+    let exactMatches = quotes.filter(quote => quote.time === currentTime);
+
+    if (exactMatches.length > 0) {
+        // If there are exact matches, choose one at random
+        const randomIndex = Math.floor(Math.random() * exactMatches.length);
+        return exactMatches[randomIndex];
+    } else {
+        // If no exact match, find the closest quote
+        let closestQuote = null;
+        let closestDiff = Infinity;
+        quotes.forEach(quote => {
+            const quoteTimeMinutes = convertTimeToMinutes(quote.time);
+            const diff = Math.abs(quoteTimeMinutes - currentTimeMinutes);
+            if (diff < closestDiff) {
+                closestDiff = diff;
+                closestQuote = quote; // Keep track of the closest quote
+            }
+        });
+        return closestQuote; // Return the closest quote found
+    }
+}
+
 // Pull user's current time from browser
 function getCurrentTimeFormatted() {
     const now = new Date();
@@ -2357,18 +2384,24 @@ function getCurrentTimeFormatted() {
     return `${hours}:${minutes}`;
 }
 
-function findQuoteForCurrentTime() {
-    const currentTime = getCurrentTimeFormatted();
-    const quotesForCurrentTime = quotes.filter(quote => quote.time === currentTime);
-    
-    if (quotesForCurrentTime.length > 0) {
-        // Select a random quote from those available for the current time
-        const randomIndex = Math.floor(Math.random() * quotesForCurrentTime.length);
-        return quotesForCurrentTime[randomIndex];
-    }
-    return quotes[0]; // Fallback to the first quote if no match is found
+function convertTimeToMinutes(time) {
+    const [hours, minutes] = time.split(":").map(num => parseInt(num, 10));
+    return hours * 60 + minutes;
 }
 
+// Adjust the font size each time the quote updates
+function adjustFontSizeForQuote() {
+    const quoteElement = document.getElementById('quote');
+    let baseFontSize = window.innerWidth < window.innerHeight ? window.innerWidth / 15 : window.innerHeight / 15; // Smaller base font size for portrait orientation
+
+    // Adjust base font size based on the length of the quote to ensure it fits
+    const quoteLength = quoteElement.textContent.length;
+    if (quoteLength > 200) { // If the quote is longer, reduce the font size
+        baseFontSize *= 0.75; // Adjust this value as needed to ensure fit
+    }
+
+    quoteElement.style.fontSize = `${baseFontSize}px`;
+}
 
 // Run each minute
 function updateQuote() {
@@ -2386,14 +2419,20 @@ function updateQuote() {
         quoteElement.innerHTML = quote.replace(timestring, `<b>${timestring}</b>`);
         authorElement.innerHTML = `${title}<br>${author}`;
 
+        // Adjust the font size each time the quote updates
+        adjustFontSizeForQuote(); 
+
         // Fade in after changing quote
         quoteElement.style.opacity = 1;
         authorElement.style.opacity = 1;
     }, 1000); // Delay for fade-out effect
 }
 
-// Initial call to update the quote immediately on load
+// Initial setup
 updateQuote();
+window.addEventListener('resize', adjustFontSizeForQuote); // Adjust font size on window resize
+setInterval(updateQuote, 60000); // Adjust as needed
+
 
 // Set an interval to regularly update the quote
 setInterval(updateQuote, 60000); // Set to update every minute
