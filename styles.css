@@ -1,59 +1,199 @@
-body, html {
-    height: 100%;
-    margin: 0;
-    font-family: 'Tinos', serif;
-    background-color: rgb(229, 222, 201);
-    color: #333;
-    overflow: hidden; /* Prevents any potential scrollbar from affecting alignment */
+/* CSS Custom Properties (Variables) */
+:root {
+  /* Colors */
+  --color-background: #fff;
+  --color-text: #000;
+  --color-link: #000;
+  --color-link-hover: rgba(0, 0, 0, 0.5);
+  
+  /* Typography */
+  --font-family-serif: 'Tinos', Georgia, serif;
+  --font-size-base: 5.5vw;
+  --font-size-author: calc(var(--font-size-base) * 0.45);
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  
+  /* Spacing */
+  --spacing-small: 3%;
+  --spacing-bottom: 0;
+  
+  /* Transitions */
+  --transition-duration: 2s;
+  --transition-timing: ease;
+  
+  /* Layout */
+  --quote-max-height: 70vh;
 }
 
-.github-link {
-    position: fixed;
-    right: 20px;
-    top: 20px;
-    transition: opacity 1s ease-in-out;
-    opacity: 1;
-    z-index: 1000; /* Ensure it's above other elements */
+/* Reset and base styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-.github-link img {
-    width: 80px; /* Adjust width as needed */
-    height: auto; /* Maintain aspect ratio */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family-serif);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  overflow: hidden;
 }
 
-.github-link:hover {
-    opacity: 1 !important;
-}
-
+/* Main quote container */
 #quoteContainer {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 20px; /* Add padding to ensure content doesn't touch the edges */
-    box-sizing: border-box; /* Ensures padding does not add to the set width */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 2rem;
+  position: relative;
 }
 
+/* Quote text */
 #quote {
-    font-size: clamp(1.5rem, 3vw + 3vh, 3.5rem); /* Adjust as needed */
-    text-align: left;
-    opacity: 0; /* Start with quote invisible for fade-in effect */
-    transition: opacity 2s; /* Fade in/out duration */
-    margin: 0 20px;
-    overflow-wrap: break-word; /* Ensures long words don't overflow */
-    max-height: 70vh; /* Adjust based on your design needs */
-    overflow-y: auto; /* Adds scrolling to the quote if it overflows */
+  font-size: clamp(2rem, var(--font-size-base), 8rem);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.4;
+  text-align: center;
+  max-height: var(--quote-max-height);
+  overflow-y: auto;
+  opacity: 1;
+  transition: opacity var(--transition-duration) var(--transition-timing);
+  padding: 0 1rem;
 }
 
+#quote strong {
+  font-weight: var(--font-weight-bold);
+}
 
+/* Author attribution */
 #author {
-    font-size: calc(1.5vw + 1.5vh + 1.5vmin); /* Increased font size */
-    position: absolute;
-    right: 3%; /* Ensures it's at the very right */
-    bottom: 0px; /* Maintains a consistent distance from the bottom */
-    text-align: right;
-    opacity: 0; /* Start with author/book title invisible for fade-in effect */
-    transition: opacity 2s; /* Fade in/out duration */
+  position: absolute;
+  right: var(--spacing-small);
+  bottom: var(--spacing-bottom);
+  font-size: var(--font-size-author);
+  font-weight: var(--font-weight-normal);
+  text-align: right;
+  opacity: 1;
+  transition: opacity var(--transition-duration) var(--transition-timing);
+  padding: 0.5rem;
+}
+
+/* GitHub link */
+.github-link {
+  position: fixed;
+  top: var(--spacing-small);
+  right: var(--spacing-small);
+  color: var(--color-link);
+  text-decoration: none;
+  font-size: 1.5rem;
+  opacity: 1;
+  transition: opacity 0.3s var(--transition-timing);
+  z-index: 100;
+  padding: 0.5rem;
+}
+
+.github-link:hover,
+.github-link:focus {
+  opacity: 0.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  :root {
+    --font-size-base: 6.5vw;
+  }
+  
+  #quoteContainer {
+    padding: 1rem;
+  }
+  
+  #quote {
+    font-size: clamp(1.5rem, var(--font-size-base), 6rem);
+  }
+  
+  #author {
+    font-size: calc(var(--font-size-base) * 0.4);
+    position: static;
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .github-link {
+    font-size: 1.2rem;
+  }
+}
+
+@media (orientation: portrait) {
+  :root {
+    --font-size-base: 8vw;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background-color: white;
+    color: black;
+  }
+  
+  .github-link {
+    display: none;
+  }
+  
+  #quote,
+  #author {
+    opacity: 1 !important;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #1a1a1a;
+    --color-text: #e0e0e0;
+    --color-link: #e0e0e0;
+    --color-link-hover: rgba(224, 224, 224, 0.5);
+  }
+}
+
+/* Scrollbar styling for quote overflow */
+#quote::-webkit-scrollbar {
+  width: 8px;
+}
+
+#quote::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#quote::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+#quote::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Firefox scrollbar */
+#quote {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 }
