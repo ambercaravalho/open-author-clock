@@ -7,7 +7,7 @@
   --color-link-hover: rgba(0, 0, 0, 0.5);
   
   /* Typography */
-  --font-family-serif: 'Tinos', Georgia, serif;
+  --font-family-serif: 'Noto Serif KR', Georgia, serif;
   --font-size-base: 5.5vw;
   --font-size-author: calc(var(--font-size-base) * 0.45);
   --font-weight-normal: 400;
