@@ -1,0 +1,249 @@
+@font-face {
+  font-family: 'Tinos';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/tinos-400-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Tinos';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/tinos-400-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Tinos';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/tinos-400i-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Tinos';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/tinos-400i-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Tinos';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/tinos-700-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Tinos';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/tinos-700-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  color-scheme: light dark;
+
+  --color-background: #fff;
+  --color-text: #000;
+  --color-error: #a11;
+
+  --font-family-serif: 'Tinos', Georgia, 'Times New Roman', serif;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+
+  --font-size-author: clamp(0.85rem, 2.4vmin + 0.3rem, 3rem);
+  --quote-line-height: 1.35;
+
+  --edge-gap: max(1.5vmin, 0.75rem);
+  --top-gap: calc(var(--edge-gap) + 2.5rem);
+  --fade-duration: 1s;
+  --transition-timing: ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #111;
+    --color-text: #e8e8e8;
+    --color-error: #f88;
+  }
+}
+
+:root[data-display='eink'] {
+  color-scheme: light;
+
+  --color-background: #fff;
+  --color-text: #000;
+  --color-error: #000;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-family-serif);
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+#quoteContainer {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100%;
+  width: 100%;
+  padding: calc(env(safe-area-inset-top, 0px) + var(--top-gap))
+    calc(env(safe-area-inset-right, 0px) + var(--edge-gap))
+    calc(env(safe-area-inset-bottom, 0px) + var(--edge-gap))
+    calc(env(safe-area-inset-left, 0px) + var(--edge-gap));
+  gap: var(--edge-gap);
+}
+
+#quote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  margin: 0;
+  overflow: clip;
+  font-size: 1rem;
+  font-weight: var(--font-weight-normal);
+  opacity: 1;
+  transition: opacity var(--fade-duration) var(--transition-timing);
+}
+
+#quoteText {
+  max-width: 100%;
+  line-height: var(--quote-line-height);
+  text-align: center;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+#quoteText strong {
+  font-weight: var(--font-weight-bold);
+}
+
+#author {
+  align-self: end;
+  justify-self: end;
+  max-width: 100%;
+  font-size: var(--font-size-author);
+  text-align: right;
+  text-wrap: balance;
+  opacity: 1;
+  transition: opacity var(--fade-duration) var(--transition-timing);
+}
+
+#author:empty {
+  min-height: 1em;
+}
+
+.error {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-content: center;
+  margin: 0;
+  padding: 2rem;
+  background-color: var(--color-background);
+  color: var(--color-error);
+}
+
+.error > p {
+  max-width: 40ch;
+  margin: 0;
+  font-size: clamp(1rem, 2.5vmin + 0.5rem, 1.75rem);
+  text-align: center;
+  text-wrap: pretty;
+}
+
+.github-link {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + var(--edge-gap));
+  right: calc(env(safe-area-inset-right, 0px) + var(--edge-gap));
+  display: flex;
+  padding: 0.5rem;
+  color: inherit;
+  opacity: 1;
+  transition: opacity 0.3s var(--transition-timing);
+}
+
+.github-link:hover,
+.github-link:focus-visible {
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  #quoteContainer {
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+  }
+}
+
+@media print {
+  body {
+    height: auto;
+    background-color: #fff;
+    color: #000;
+  }
+
+  .github-link {
+    display: none;
+  }
+
+  #quote,
+  #author {
+    opacity: 1 !important;
+  }
+}
